@@ -1,0 +1,19 @@
+{
+  "posts": [
+    {
+      "id": 1,
+      "title": "Exercitation pariatur enim consequat cillum deserunt reprehenderit occaecat irure.",
+      "lastReply": "1997-07-15"
+    },
+    {
+      "id": 2,
+      "title": "Occaecat consequat proident pariatur magna pariatur dolore minim laboris.",
+      "lastReply": "1997-07-18"
+    },
+    {
+      "id": 3,
+      "title": "Excepteur pariatur adipisicing cupidatat veniam tempor id culpa.",
+      "lastReply": "1997-07-20"
+    }
+  ]
+}
