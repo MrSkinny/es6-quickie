@@ -15,5 +15,22 @@
       "title": "Excepteur pariatur adipisicing cupidatat veniam tempor id culpa.",
       "lastReply": "1997-07-20"
     }
+  ],
+  "users": [
+    {
+      "id": 1,
+      "name": "Rich",
+      "avatar": "avatar.jpg"
+    },
+    {
+      "id": 2,
+      "name": "Donald",
+      "avatar": "avatar.jpg"
+    },
+    {
+      "id": 3,
+      "name": "Mickey",
+      "avatar": "avatar.jpg"
+    }
   ]
 }
