@@ -1100,6 +1100,10 @@ exports.uriFragmentInHTMLComment = exports.uriComponentInHTMLComment;
 },{}],2:[function(require,module,exports){
 "use strict";
 
+var _user = require("./user");
+
+var _user2 = _interopRequireDefault(_user);
+
 var _post = require("./post");
 
 var _post2 = _interopRequireDefault(_post);
@@ -1114,7 +1118,11 @@ _post2.default.findAll().then(_ui2.default.renderPosts).catch(function (error) {
   return console.log(error);
 });
 
-},{"./post":3,"./ui":4}],3:[function(require,module,exports){
+_user2.default.findRecent().then(_ui2.default.renderUsers).catch(function (error) {
+  return console.log(error);
+});
+
+},{"./post":3,"./ui":4,"./user":5}],3:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -1166,6 +1174,14 @@ function articleTemplate(title, lastReply) {
   return template;
 }
 
+function userTemplate(name, avatar) {
+  var safeName = _xssFilters2.default.inHTMLData(name);
+
+  var template = "\n    <div class=\"active-avatar\">\n      <img width=\"54\" src=\"assets/images/" + avatar + "\" />\n      <h5 class=\"post-author\">" + safeName + "</h5>\n    </div>\n  ";
+
+  return template;
+}
+
 var ui = {
   renderPosts: function renderPosts(posts) {
     var elements = posts.map(function (post) {
@@ -1177,9 +1193,50 @@ var ui = {
 
     var target = document.querySelector(".container");
     target.innerHTML = elements;
+  },
+  renderUsers: function renderUsers(users) {
+    var elements = users.map(function (user) {
+      var name = user.name;
+      var avatar = user.avatar;
+
+      return userTemplate(name, avatar);
+    });
+
+    var target = document.querySelector(".sidebar-content");
+    target.innerHTML = elements;
   }
 };
 
 exports.default = ui;
 
-},{"xss-filters":1}]},{},[2]);
+},{"xss-filters":1}],5:[function(require,module,exports){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var User = {
+  findRecent: function findRecent() {
+    return new Promise(function (resolve, reject) {
+      var uri = "http://localhost:3000/activeUsers";
+      var request = new XMLHttpRequest();
+
+      request.open("GET", uri, true); // 'true' async, won't block
+      request.onload = function () {
+        if (request.status >= 200 && request.status < 400) {
+          resolve(JSON.parse(request.response));
+        }
+      };
+
+      request.onerror = function () {
+        reject(new Error("Something went wrong with API"));
+      };
+
+      request.send();
+    });
+  }
+};
+
+exports.default = User;
+
+},{}]},{},[2]);
